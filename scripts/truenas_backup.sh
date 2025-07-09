@@ -30,6 +30,21 @@ log() {
   fi
 }
 
+send_wol() {
+  if [ -n "$WOL_MAC" ]; then
+    log info "Sending Wake-on-LAN packet to $WOL_MAC"
+    python3 - <<EOF
+import socket, binascii
+mac = "${WOL_MAC}".replace("-", "").replace(":", "")
+data = b"FFFFFFFFFFFF" + (mac * 16).encode()
+packet = binascii.unhexlify(data.decode())
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+sock.sendto(packet, ("${WOL_BROADCAST}", ${WOL_PORT}))
+EOF
+  fi
+}
+
 TRUENAS_HOST="${TRUENAS_HOST:-}"
 SMB_SHARE="${SMB_SHARE:-}"
 MOUNT_POINT="${MOUNT_POINT:-/tmp/truenas_backup_mount}"  # Temporary mount point
@@ -40,6 +55,9 @@ LOCAL_BACKUP_PATH="${LOCAL_BACKUP_PATH:-/path/to/local/backup}"
 STARTUP_DELAY="${STARTUP_DELAY:-120}"
 VERIFY_SHUTDOWN="${VERIFY_SHUTDOWN:-0}"
 WATCHDOG="${WATCHDOG:-false}"
+WOL_MAC="${WOL_MAC:-}"
+WOL_BROADCAST="${WOL_BROADCAST:-255.255.255.255}"
+WOL_PORT="${WOL_PORT:-9}"
 
 if [ -z "$TRUENAS_HOST" ] && [ -n "$SMB_SHARE" ]; then
   TRUENAS_HOST=$(echo "$SMB_SHARE" | sed -e 's|^//||' -e 's|/.*$||')
@@ -60,6 +78,8 @@ fi
 if [ "$WATCHDOG" = "true" ]; then
   log debug "Watchdog enabled"
 fi
+
+send_wol
 
 if [ "$STARTUP_DELAY" -gt 0 ]; then
   log debug "Waiting $STARTUP_DELAY seconds for TrueNAS to boot"

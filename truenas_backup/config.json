@@ -12,6 +12,7 @@
   ],
   "startup": "once",
   "boot": "auto",
+  "stdin": true,
   "options": {
     "truenas_host": "truenas.local",
     "smb_share": "",
@@ -22,7 +23,11 @@
     "startup_delay": 120,
     "log_level": "info",
     "verify_shutdown": false,
-    "watchdog": false
+    "watchdog": false,
+    "wol_mac": "",
+    "wol_broadcast": "255.255.255.255",
+    "wol_port": 9,
+    "trigger_time": "02:00:00"
   },
   "schema": {
     "truenas_host": "str",
@@ -34,7 +39,12 @@
     "startup_delay": "int",
     "log_level": "str",
     "verify_shutdown": "bool",
-    "watchdog": "bool"
+    "watchdog": "bool",
+    "wol_mac": "str",
+    "wol_broadcast": "str",
+    "wol_port": "int",
+    "trigger_time": "str"
   },
-  "url": "https://github.com/marttrach/HA_Truenas_Auto_Backup"
-}
+  "url": "https://github.com/marttrach/HA_Truenas_Auto_Backup",
+  "documentation": "https://github.com/marttrach/HA_Truenas_Auto_Backup/blob/main/truenas_backup/README.md"
+  }

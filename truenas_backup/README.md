@@ -7,6 +7,8 @@
 即可於 Add-on Store 看到 `TrueNAS Backup`。
 
 `startup_delay` 參數可以指定在發送 Wake on LAN 後等待多少秒才開始備份，以符合 TrueNAS 開機所需時間。
+`wol_mac`、`wol_broadcast` 與 `wol_port` 分別對應 Wake on LAN 的目標 MAC 位址、廣播位置以及連接埠，
+`trigger_time` 則用來指定每天何時執行備份，add-on 啟動後會依此時間自動執行。
 
 ## Ingress 與文件
 本 add-on 不包含額外的 Web 介面，但可以透過 Ingress 檢視此說明文件。進入 Add-on 詳細畫面後，點選上方的 `Documentation` 按鈕即可開啟。
@@ -19,3 +21,7 @@
 
 ### Watchdog
 在設定頁面可切換 `watchdog` 選項，啟用後 Home Assistant 將監控容器狀態並在需要時重新啟動。
+
+### 手動測試
+若想立即驗證備份流程，可透過 `hassio.addon_stdin` 服務傳送 `run` 指令。
+本儲存庫提供 `truenas_backup_test.yaml`，加入後即可在介面按下按鈕觸發一次備份。
