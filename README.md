@@ -14,11 +14,16 @@ shell_command:
   truenas_backup: /config/scripts/truenas_backup.sh
 
 rest_command:
-  truenas_shutdown:
-    url: "http://truenas.local/api/v2.0/system/shutdown"
-    method: post
+  shutdown_truenas:
+    url: https://truenas.local/api/v2.0/system/shutdown
+    method: POST
     headers:
-      Authorization: "Bearer <YOUR_API_TOKEN>"
+      # secrets.yaml 內請存放完整字串：  truenas_api: "Bearer XXXXXXXXXXX"
+      Authorization: !secret truenas_api
+      Content-Type: "application/json"
+    payload: >
+      {"reason":"HA automation shutdown","options":{"delay":10}}
+    verify_ssl: true
 ```
 
 3. 編輯 `scripts/truenas_backup.sh` 或透過新增的 Home Assistant Add-on 在 Web UI 中輸入設定值。

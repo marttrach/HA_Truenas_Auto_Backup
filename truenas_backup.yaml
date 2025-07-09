@@ -10,5 +10,5 @@ action:
   - delay: "00:02:00"
     # Adjust as needed, or set STARTUP_DELAY env var in the script
   - service: shell_command.truenas_backup
-  - service: rest_command.truenas_shutdown
+  - service: rest_command.shutdown_truenas
 mode: single
