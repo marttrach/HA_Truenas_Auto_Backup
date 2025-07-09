@@ -1,3 +1,5 @@
+# Changelog
+
 ## 1.2.0
 - 新增 log level 下拉選單與時間選擇器
 - 新增根目錄 CHANGELOG 記錄

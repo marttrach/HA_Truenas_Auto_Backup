@@ -9,6 +9,7 @@
 `startup_delay` 參數可以指定在發送 Wake on LAN 後等待多少秒才開始備份，以符合 TrueNAS 開機所需時間。
 `wol_mac`、`wol_broadcast` 與 `wol_port` 分別對應 Wake on LAN 的目標 MAC 位址、廣播位置以及連接埠，
 `trigger_time` 則用來指定每天何時執行備份，add-on 啟動後會依此時間自動執行。
+自 1.2.0 起，`log_level` 於設定頁面提供下拉選單，`trigger_time` 則使用時間選擇器，設定更加直覺。
 
 ## Ingress 與文件
 本 add-on 不包含額外的 Web 介面，但可以透過 Ingress 檢視此說明文件。進入 Add-on 詳細畫面後，點選上方的 `Documentation` 按鈕即可開啟。
