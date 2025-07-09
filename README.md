@@ -19,7 +19,14 @@ rest_command:
       Authorization: "Bearer <YOUR_API_TOKEN>"
 ```
 
-3. 編輯 `scripts/truenas_backup.sh` 填入 SMB 分享與認證資訊。
-4. 透過 `chmod +x scripts/truenas_backup.sh` 賦予可執行權限。
+3. 編輯 `scripts/truenas_backup.sh` 或透過新增的 Home Assistant Add-on 在 Web UI 中輸入設定值。
+4. 透過 `chmod +x scripts/truenas_backup.sh` 賦予可執行權限（若未使用 add-on）。
+5. 若 TrueNAS 開機時間較長，可透過 `STARTUP_DELAY` 環境變數（秒）調整在 Wake on LAN 後等待多久才開始備份，或於自動化中修改 `delay` 步驟。
 
-自動化預設在每天凌晨 2 點執行，可依需求調整。 
+自動化預設在每天凌晨 2 點執行，可依需求調整。
+
+## Add-on 安裝
+
+若希望在 Home Assistant 的網頁介面中設定參數，可使用 `addon` 資料夾中的範例 add-on。
+將整個資料夾放入 `/addons` 路徑後，在 Supervisor – Add-on Store 中就能看到此套件。
+安裝後即可在設定頁面填入 SMB 分享路徑、帳號密碼與備份目標位置等資訊。
