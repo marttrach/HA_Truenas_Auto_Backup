@@ -38,8 +38,8 @@ rest_command:
 
 ## Add-on 安裝
 
-若希望在 Home Assistant 的網頁介面中設定參數，可使用 `addon` 資料夾中的範例 add-on。
-將整個資料夾放入 `/addons` 路徑後，在 Supervisor – Add-on Store 中就能看到此套件。
+若希望在 Home Assistant 的網頁介面中設定參數，可使用 `truenas_backup` 資料夾中的範例 add-on。
+您可以直接將本 GitHub 儲存庫加入 Home Assistant 的 Add-on Store，或是將整個資料夾手動放入 `/addons` 目錄後重新啟動 Supervisor，即可在 Add-on Store 中看到此套件。
 安裝後即可在設定頁面填入 SMB 分享路徑、帳號密碼與備份目標位置等資訊。
 
 點擊下方按鈕即可將此 GitHub 儲存庫加入 Home Assistant 的 Add-on Store，並在有新版本發佈時收到更新通知。
