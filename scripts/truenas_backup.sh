@@ -39,6 +39,7 @@ PASSWORD="${PASSWORD:-yourpassword}"                     # SMB password
 LOCAL_BACKUP_PATH="${LOCAL_BACKUP_PATH:-/path/to/local/backup}"
 STARTUP_DELAY="${STARTUP_DELAY:-120}"
 VERIFY_SHUTDOWN="${VERIFY_SHUTDOWN:-0}"
+WATCHDOG="${WATCHDOG:-false}"
 
 if [ -z "$TRUENAS_HOST" ] && [ -n "$SMB_SHARE" ]; then
   TRUENAS_HOST=$(echo "$SMB_SHARE" | sed -e 's|^//||' -e 's|/.*$||')
@@ -54,6 +55,10 @@ if ping -c 1 "$TRUENAS_HOST" >/dev/null 2>&1; then
 else
   log error "TrueNAS is not reachable"
   exit 1
+fi
+
+if [ "$WATCHDOG" = "true" ]; then
+  log debug "Watchdog enabled"
 fi
 
 if [ "$STARTUP_DELAY" -gt 0 ]; then
