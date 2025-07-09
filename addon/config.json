@@ -7,19 +7,25 @@
   "startup": "once",
   "boot": "auto",
   "options": {
-    "smb_share": "//truenas.local/backup",
+    "truenas_host": "truenas.local",
+    "smb_share": "",
     "mount_point": "/tmp/truenas_backup_mount",
     "username": "youruser",
     "password": "yourpassword",
     "local_path": "/path/to/local/backup",
-    "startup_delay": 120
+    "startup_delay": 120,
+    "log_level": "info",
+    "verify_shutdown": false
   },
   "schema": {
+    "truenas_host": "str",
     "smb_share": "str",
     "mount_point": "str",
     "username": "str",
     "password": "str",
     "local_path": "str",
-    "startup_delay": "int"
+    "startup_delay": "int",
+    "log_level": "str",
+    "verify_shutdown": "bool"
   }
 }
