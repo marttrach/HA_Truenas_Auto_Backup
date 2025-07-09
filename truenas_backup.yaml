@@ -1,0 +1,13 @@
+alias: "TrueNAS Scheduled Backup"
+description: "Wake TrueNAS via WOL, backup via SMB, then shut down"
+trigger:
+  - platform: time
+    at: "02:00:00"
+action:
+  - service: wake_on_lan.send_magic_packet
+    data:
+      mac: "00:11:22:33:44:55"  # Replace with your NAS MAC address
+  - delay: "00:02:00"
+  - service: shell_command.truenas_backup
+  - service: rest_command.truenas_shutdown
+mode: single
