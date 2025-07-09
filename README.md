@@ -15,7 +15,7 @@ shell_command:
 
 rest_command:
   shutdown_truenas:
-    url: https://truenas.local/api/v2.0/system/shutdown
+    url: https://YOUR_TRUENAS_HOST/api/v2.0/system/shutdown
     method: POST
     headers:
       # secrets.yaml 內請存放完整字串：  truenas_api: "Bearer XXXXXXXXXXX"
@@ -26,9 +26,13 @@ rest_command:
     verify_ssl: true
 ```
 
+將上述 `YOUR_TRUENAS_HOST` 替換為 TrueNAS 主機位址，或透過 `TRUENAS_HOST` 環境變數設定。
+
 3. 編輯 `scripts/truenas_backup.sh` 或透過新增的 Home Assistant Add-on 在 Web UI 中輸入設定值。
 4. 透過 `chmod +x scripts/truenas_backup.sh` 賦予可執行權限（若未使用 add-on）。
 5. 若 TrueNAS 開機時間較長，可透過 `STARTUP_DELAY` 環境變數（秒）調整在 Wake on LAN 後等待多久才開始備份，或於自動化中修改 `delay` 步驟。
+6. 使用 `TRUENAS_HOST` 環境變數指定 TrueNAS 主機位址，預設為 `truenas.local`。
+7. 使用 `LOG_LEVEL` 環境變數調整日誌輸出等級，可選 `debug`、`info`、`warn`、`error` 或 `none`。
 
 自動化預設在每天凌晨 2 點執行，可依需求調整。
 
