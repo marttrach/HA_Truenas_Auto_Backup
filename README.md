@@ -2,6 +2,8 @@
 
 [![GitHub release](https://img.shields.io/github/v/release/marttrach/HA_Truenas_Auto_Backup)](https://github.com/marttrach/HA_Truenas_Auto_Backup/releases/latest)
 
+完整更新記錄請參考 [CHANGELOG](CHANGELOG.md)。
+
 提供 Home Assistant 自動任務範例，透過 Wake on LAN 啟動 TrueNAS，
 在備份完成後使用 REST API 關閉系統。
 
