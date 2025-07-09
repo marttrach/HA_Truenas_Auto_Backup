@@ -1,5 +1,7 @@
 # HA_Truenas_Auto_Backup
 
+[![GitHub release](https://img.shields.io/github/v/release/marttrach/HA_Truenas_Auto_Backup)](https://github.com/marttrach/HA_Truenas_Auto_Backup/releases/latest)
+
 提供 Home Assistant 自動任務範例，透過 Wake on LAN 啟動 TrueNAS，
 在備份完成後使用 REST API 關閉系統。
 
@@ -30,3 +32,7 @@ rest_command:
 若希望在 Home Assistant 的網頁介面中設定參數，可使用 `addon` 資料夾中的範例 add-on。
 將整個資料夾放入 `/addons` 路徑後，在 Supervisor – Add-on Store 中就能看到此套件。
 安裝後即可在設定頁面填入 SMB 分享路徑、帳號密碼與備份目標位置等資訊。
+
+點擊下方按鈕即可將此 GitHub 儲存庫加入 Home Assistant 的 Add-on Store，並在有新版本發佈時收到更新通知。
+
+[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fmarttrach%2FHA_Truenas_Auto_Backup)
