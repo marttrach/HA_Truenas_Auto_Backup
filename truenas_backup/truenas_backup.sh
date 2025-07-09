@@ -45,6 +45,14 @@ EOF
   fi
 }
 
+# Fallback copy using smbget when mounting SMB share is not permitted
+copy_via_smbget() {
+  local url="smb://${SMB_SHARE#//}"
+  log info "Using smbget fallback to copy from $url"
+  mkdir -p "$LOCAL_BACKUP_PATH"
+  (cd "$LOCAL_BACKUP_PATH" && smbget -R -u "$USERNAME" -p "$PASSWORD" "$url")
+}
+
 TRUENAS_HOST="${TRUENAS_HOST:-}"
 SMB_SHARE="${SMB_SHARE:-}"
 MOUNT_POINT="${MOUNT_POINT:-/tmp/truenas_backup_mount}"  # Temporary mount point
@@ -94,8 +102,9 @@ if ! mountpoint -q "$MOUNT_POINT"; then
   if mount -t cifs "$SMB_SHARE" "$MOUNT_POINT" -o username="$USERNAME",password="$PASSWORD",rw; then
     log info "SMB mount successful"
   else
-    log error "Failed to mount SMB share"
-    exit 1
+    log warn "Failed to mount SMB share, falling back to smbget"
+    copy_via_smbget || exit 1
+    exit 0
   fi
 else
   log debug "Mount point already mounted"
