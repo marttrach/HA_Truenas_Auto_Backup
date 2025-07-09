@@ -1,0 +1,25 @@
+{
+  "name": "TrueNAS Backup",
+  "slug": "truenas_backup",
+  "description": "Backup TrueNAS share via SMB.",
+  "version": "1.0.0",
+  "arch": ["amd64", "aarch64", "armv7", "armhf", "i386"],
+  "startup": "once",
+  "boot": "auto",
+  "options": {
+    "smb_share": "//truenas.local/backup",
+    "mount_point": "/tmp/truenas_backup_mount",
+    "username": "youruser",
+    "password": "yourpassword",
+    "local_path": "/path/to/local/backup",
+    "startup_delay": 120
+  },
+  "schema": {
+    "smb_share": "str",
+    "mount_point": "str",
+    "username": "str",
+    "password": "str",
+    "local_path": "str",
+    "startup_delay": "int"
+  }
+}

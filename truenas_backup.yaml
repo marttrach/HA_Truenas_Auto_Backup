@@ -8,6 +8,7 @@ action:
     data:
       mac: "00:11:22:33:44:55"  # Replace with your NAS MAC address
   - delay: "00:02:00"
+    # Adjust as needed, or set STARTUP_DELAY env var in the script
   - service: shell_command.truenas_backup
   - service: rest_command.truenas_shutdown
 mode: single
