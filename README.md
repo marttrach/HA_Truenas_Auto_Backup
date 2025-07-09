@@ -30,12 +30,15 @@ rest_command:
 
 3. 編輯 `scripts/truenas_backup.sh` 或透過新增的 Home Assistant Add-on 在 Web UI 中輸入設定值。
 4. 透過 `chmod +x scripts/truenas_backup.sh` 賦予可執行權限（若未使用 add-on）。
-5. 若 TrueNAS 開機時間較長，可透過 `STARTUP_DELAY` 環境變數（秒）調整在 Wake on LAN 後等待多久才開始備份，或於自動化中修改 `delay` 步驟。
+5. 若 TrueNAS 開機時間較長，可透過 `STARTUP_DELAY` 環境變數（秒）調整在 Wake on LAN 後等待多久才開始備份。
 6. 使用 `TRUENAS_HOST` 環境變數指定 TrueNAS 主機位址，預設為 `truenas.local`。
 7. 使用 `LOG_LEVEL` 環境變數調整日誌輸出等級，可選 `debug`、`info`、`warn`、`error` 或 `none`。
 8. 使用 `WATCHDOG` 環境變數（`true` 或 `false`）控制是否啟用容器 Watchdog 功能。
+9. 透過 add-on 設定頁面可調整 `wol_mac`、`wol_broadcast`、`wol_port` 及 `trigger_time` 等參數。
+10. 若需立即測試備份流程，可匯入 `truenas_backup_test.yaml` 並在 UI 中按下按鈕觸發。
 
-自動化預設在每天凌晨 2 點執行，可依需求調整。
+範例自動化會在每天凌晨 2 點啟動 add-on，實際執行時間可在設定頁面透過 `trigger_time` 調整。
+手動測試可呼叫 `hassio.addon_stdin` 服務並傳送 `run`，或使用 `truenas_backup_test.yaml` 範例。
 
 ## Add-on 安裝
 

@@ -1,0 +1,8 @@
+alias: "TrueNAS Backup Test"
+description: "Run the TrueNAS Backup add-on once"
+sequence:
+  - service: hassio.addon_stdin
+    data:
+      addon: "local_truenas_backup"
+      input: "run"
+mode: single
