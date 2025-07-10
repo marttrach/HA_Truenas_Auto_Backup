@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1.0
+- 新增啟動與排程日誌，每分鐘回報 TrueNAS 狀態
+
 ## 2.0.0
 - 新增容器映像 `ghcr.io/marttrach/truenas_backup-{arch}`
 

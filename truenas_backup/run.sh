@@ -5,6 +5,9 @@ set -e
 log() {
   printf '%s %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
+log() {
+  printf '%s %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
+}
 CONFIG_PATH=/data/options.json
 TRUENAS_HOST=$(jq -r '.truenas_host // ""' "$CONFIG_PATH")
 SMB_SHARE=$(jq -r '.smb_share // ""' "$CONFIG_PATH")
