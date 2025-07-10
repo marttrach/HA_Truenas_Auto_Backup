@@ -5,8 +5,14 @@ set -e
 log() {
   printf '%s %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
-log() {
-  printf '%s %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
+
+run_backup() {
+  log "$1 backup triggered"
+  if /usr/local/bin/truenas_backup.sh; then
+    log "Backup completed"
+  else
+    log "Backup script failed with code $?"
+  fi
 }
 CONFIG_PATH=/data/options.json
 TRUENAS_HOST=$(jq -r '.truenas_host // ""' "$CONFIG_PATH")
@@ -25,6 +31,7 @@ WOL_PORT=$(jq -r '.wol_port // 9' "$CONFIG_PATH")
 TRIGGER_TIME=$(jq -r '.trigger_time // "02:00:00"' "$CONFIG_PATH")
 log "TrueNAS backup service starting"
 log "Configuration loaded. Trigger time set to $TRIGGER_TIME"
+log "Random log ID $(tr -dc A-Za-z0-9 </dev/urandom | head -c 8)"
 if [ ! -x /usr/local/bin/truenas_backup.sh ]; then
   log "Error: /usr/local/bin/truenas_backup.sh not found"
   exit 1
@@ -49,11 +56,9 @@ while true; do
     fi
     if read -r -t 1 cmd; then
       if [ "$cmd" = "run" ]; then
-        log "Manual run triggered"
-        /usr/local/bin/truenas_backup.sh
+        run_backup "Manual"
       fi
     fi
   done
-  log "Starting scheduled backup"
-  /usr/local/bin/truenas_backup.sh
+  run_backup "Scheduled"
 done
