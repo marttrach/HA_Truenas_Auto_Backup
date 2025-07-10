@@ -49,7 +49,7 @@ jobs:
       - name: 建置並推送單架構映像
         uses: docker/build-push-action@v5
         with:
-          context: ./addon
+          context: ./truenas_backup
           platforms: ${{ matrix.platform }}
           push: true
           tags: |
