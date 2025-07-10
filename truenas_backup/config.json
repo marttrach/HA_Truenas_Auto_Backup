@@ -44,7 +44,7 @@
     "wol_mac": "str",
     "wol_broadcast": "str",
     "wol_port": "int",
-    "trigger_time": "time"
+    "trigger_time": "match(^([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d$)"
   },
   "url": "https://github.com/marttrach/HA_Truenas_Auto_Backup",
   "documentation": "https://github.com/marttrach/HA_Truenas_Auto_Backup/blob/main/truenas_backup/README.md"
