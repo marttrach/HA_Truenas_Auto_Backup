@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.0
+- 新增容器映像 `ghcr.io/marttrach/truenas_backup-{arch}`
+
 ## 1.2.0
 - 新增 log level 下拉選單與時間選擇器
 - 新增根目錄 CHANGELOG 記錄

@@ -10,6 +10,7 @@
     "armhf",
     "i386"
   ],
+  "image": "ghcr.io/marttrach/truenas_backup-{arch}",
   "startup": "once",
   "boot": "auto",
   "stdin": true,
