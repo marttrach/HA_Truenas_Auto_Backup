@@ -6,12 +6,36 @@ log() {
   printf '%s %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
+ha_call() {
+  local path="$1" data="$2"
+  curl -s -H "Authorization: Bearer $SUPERVISOR_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d "$data" "http://supervisor/core/api/services/$path" >/dev/null
+}
+
+ha_wol() {
+  if [ -n "$WOL_MAC" ]; then
+    log "Sending WOL via Home Assistant for $WOL_MAC"
+    ha_call "wake_on_lan/send_magic_packet" \
+      "{\"mac\": \"$WOL_MAC\", \"broadcast_address\": \"$WOL_BROADCAST\", \"broadcast_port\": $WOL_PORT}"
+  fi
+}
+
+ha_shutdown() {
+  log "Triggering shutdown via Home Assistant"
+  ha_call "rest_command/shutdown_truenas" "{}"
+}
+
 run_backup() {
   log "$1 backup triggered"
-  if /usr/local/bin/truenas_backup.sh; then
+  ha_wol
+  if /usr/local/bin/truenas_backup.sh 2>&1 | while IFS= read -r line; do log "$line"; done; then
     log "Backup completed"
   else
-    log "Backup script failed with code $?"
+    log "Backup script failed"
+  fi
+  if [ "$VERIFY_SHUTDOWN" = "true" ] || [ "$VERIFY_SHUTDOWN" = "1" ]; then
+    ha_shutdown
   fi
 }
 CONFIG_PATH=/data/options.json

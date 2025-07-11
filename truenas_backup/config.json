@@ -1,8 +1,9 @@
 {
   "name": "TrueNAS Backup",
   "slug": "truenas_backup",
+  "logo": "logo.png",
   "description": "Backup TrueNAS share via SMB.",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "arch": [
     "amd64",
     "aarch64",

@@ -26,3 +26,23 @@
 ### 手動測試
 若想立即驗證備份流程，可透過 `hassio.addon_stdin` 服務傳送 `run` 指令。
 本儲存庫提供 `truenas_backup_test.yaml`，加入後即可在介面按下按鈕觸發一次備份。
+
+## 設定參數範例
+以下為各設定欄位範例輸入，可依實際環境調整：
+
+| 參數 | 範例值 | 說明 |
+| --- | --- | --- |
+| `truenas_host` | `truenas.local` | TrueNAS 主機位址 |
+| `smb_share` | `//truenas/backup` | SMB 分享路徑 |
+| `mount_point` | `/tmp/truenas_backup_mount` | 臨時掛載點 |
+| `username` | `backupuser` | SMB 使用者名稱 |
+| `password` | `yourpassword` | SMB 密碼 |
+| `local_path` | `/backup/truenas` | 儲存備份的路徑 |
+| `startup_delay` | `120` | WOL 後等待開機秒數 |
+| `log_level` | `info` | 日誌等級 |
+| `verify_shutdown` | `false` | 備份後是否呼叫關機 |
+| `watchdog` | `false` | 啟用容器監控 |
+| `wol_mac` | `00:11:22:33:44:55` | TrueNAS 網卡 MAC |
+| `wol_broadcast` | `255.255.255.255` | 廣播地址 |
+| `wol_port` | `9` | WOL 連接埠 |
+| `trigger_time` | `02:00:00` | 每日觸發時間 |

@@ -38,9 +38,10 @@ rest_command:
 8. 使用 `LOG_LEVEL` 環境變數調整日誌輸出等級，可選 `debug`、`info`、`warn`、`error` 或 `none`。
 9. 使用 `WATCHDOG` 環境變數（`true` 或 `false`）控制是否啟用容器 Watchdog 功能。
 10. 透過 add-on 設定頁面可調整 `wol_mac`、`wol_broadcast`、`wol_port` 及 `trigger_time` 等參數。
-11. 若需立即測試備份流程，可匯入 `truenas_backup_test.yaml` 並在 UI 中按下按鈕觸發。
+11. 若需立即測試備份流程，可匯入 `truenas_backup_test.yaml`，按鈕將出現在 Add-on 設定頁面可直接點擊執行。
 
-範例自動化會在每天凌晨 2 點啟動 add-on，實際執行時間可在設定頁面透過 `trigger_time` 調整。
+範例自動化會在每天凌晨 2 點啟動 add-on，實際執行時間可在設定頁面透過 `trigger_time` 調整，
+此設定會覆蓋腳本中的預設時間。
 手動測試可呼叫 `hassio.addon_stdin` 服務並傳送 `run`，或使用 `truenas_backup_test.yaml` 範例。
 
 ## Add-on 安裝
