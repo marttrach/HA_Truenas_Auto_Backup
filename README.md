@@ -37,8 +37,9 @@ rest_command:
 7. 使用 `TRUENAS_HOST` 環境變數指定 TrueNAS 主機位址，預設為 `truenas.local`。
 8. 使用 `LOG_LEVEL` 環境變數調整日誌輸出等級，可選 `debug`、`info`、`warn`、`error` 或 `none`。
 9. 使用 `WATCHDOG` 環境變數（`true` 或 `false`）控制是否啟用容器 Watchdog 功能。
-10. 透過 add-on 設定頁面可調整 `wol_mac`、`wol_broadcast`、`wol_port` 及 `trigger_time` 等參數。
-11. 若需立即測試備份流程，可匯入 `truenas_backup_test.yaml`，按鈕將出現在 Add-on 設定頁面可直接點擊執行。
+10. 容器將依據系統的 `TZ` 變數設定時區，確保日誌時間與 Home Assistant 一致。
+11. 透過 add-on 設定頁面可調整 `wol_mac`、`wol_broadcast`、`wol_port` 及 `trigger_time` 等參數。
+12. 若需立即測試備份流程，可匯入 `truenas_backup_test.yaml`，按鈕將出現在 Add-on 設定頁面可直接點擊執行。
 
 範例自動化會在每天凌晨 2 點啟動 add-on，實際執行時間可在設定頁面透過 `trigger_time` 調整，
 此設定會覆蓋腳本中的預設時間。

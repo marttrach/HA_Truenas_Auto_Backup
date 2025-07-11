@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.1
+- 修正 add-on Docker 時區與 Home Assistant 系統同步
+- 移除每分鐘狀態回報，改為備份前後檢查 TrueNAS 連線狀態
+
 ## 2.3.0
 - 新增 logo 圖示 `logo.png`
 - 改由 Home Assistant 主機執行喚醒與關機流程

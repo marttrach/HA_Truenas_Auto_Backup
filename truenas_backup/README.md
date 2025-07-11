@@ -6,6 +6,8 @@
 將 `truenas_backup` 整個目錄放入 `/addons` 後重啟 Supervisor，
 即可於 Add-on Store 看到 `TrueNAS Backup`。
 
+啟動時會依 `TZ` 環境變數設定時區，通常會與 Home Assistant 主機相同。
+
 `startup_delay` 參數可以指定在發送 Wake on LAN 後等待多少秒才開始備份，以符合 TrueNAS 開機所需時間。
 `wol_mac`、`wol_broadcast` 與 `wol_port` 分別對應 Wake on LAN 的目標 MAC 位址、廣播位置以及連接埠，
 `trigger_time` 則用來指定每天何時執行備份，add-on 啟動後會依此時間自動執行。

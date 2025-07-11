@@ -6,6 +6,12 @@ log() {
   printf '%s %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
+# Align container timezone with Home Assistant system timezone
+if [ -n "$TZ" ] && [ -f "/usr/share/zoneinfo/$TZ" ]; then
+  ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime
+  echo "$TZ" > /etc/timezone
+fi
+
 ha_call() {
   local path="$1" data="$2"
   curl -s -H "Authorization: Bearer $SUPERVISOR_TOKEN" \
@@ -26,8 +32,17 @@ ha_shutdown() {
   ha_call "rest_command/shutdown_truenas" "{}"
 }
 
+check_host() {
+  if ping -c 1 -W 15 "$TRUENAS_HOST" >/dev/null 2>&1; then
+    log "TrueNAS $TRUENAS_HOST reachable"
+  else
+    log "Warning: TrueNAS $TRUENAS_HOST unreachable"
+  fi
+}
+
 run_backup() {
   log "$1 backup triggered"
+  check_host
   ha_wol
   if /usr/local/bin/truenas_backup.sh 2>&1 | while IFS= read -r line; do log "$line"; done; then
     log "Backup completed"
@@ -36,6 +51,7 @@ run_backup() {
   fi
   if [ "$VERIFY_SHUTDOWN" = "true" ] || [ "$VERIFY_SHUTDOWN" = "1" ]; then
     ha_shutdown
+    check_host
   fi
 }
 CONFIG_PATH=/data/options.json
@@ -71,13 +87,6 @@ while true; do
   end=$((target - now))
   log "Next backup scheduled at $(date -d @"$target" '+%Y-%m-%d %H:%M:%S')"
   for ((i=0; i<end; i++)); do
-    if (( i % 60 == 0 )); then
-      if ping -c 1 -W 1 "$TRUENAS_HOST" >/dev/null 2>&1; then
-        log "TrueNAS $TRUENAS_HOST reachable"
-      else
-        log "Warning: TrueNAS $TRUENAS_HOST unreachable"
-      fi
-    fi
     if read -r -t 1 cmd; then
       if [ "$cmd" = "run" ]; then
         run_backup "Manual"
